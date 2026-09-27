@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Strathmore University | Signed out{% endblock %}
+{% block body_class %}auth-page logged-out-page{% endblock %}
+
+{% block content %}
+    <main class="logout-card">
+        <a class="brand" href="{{ url_for('login') }}"><span class="brand-mark">N</span><span>Northstar <small>ACADEMY</small></span></a>
+        <div class="logout-icon">✓</div>
+        <p class="eyebrow">Session ended</p>
+        <h1>You are signed out.</h1>
+        <p>Your campus account is secure. Come back when you are ready for the next school day.</p>
+        <a class="button button-primary" href="{{ url_for('login') }}">Return to sign in <span aria-hidden="true">-&gt;</span></a>
+    </main>
+{% endblock %}
