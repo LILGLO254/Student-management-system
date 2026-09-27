@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Strathmore University | Sign in{% endblock %}
+{% block body_class %}auth-page{% endblock %}
+
+{% block content %}
+<main class="auth-shell">
+    <section class="welcome-panel" aria-label="Strathmore University introduction">
+        <a class="brand brand-light" href="{{ url_for('login') }}">
+            <span class="brand-mark">S</span>
+            <span>STRATHMORE UNIVERSITY </span>
+        </a>
+        <div class="welcome-copy">
+            <p class="eyebrow">The school day, in focus</p>
+            <h1>Make room for the moments that matter.</h1>
+            <p>One calm place for attendance, learning, families, and the people who make your school feel like home.</p>
+        </div>
+        <div class="welcome-note"><span class="status-dot"></span><span>Campus systems operational</span></div>
+    </section>
+
+    <section class="form-panel">
+        <div class="form-wrap">
+            <div class="form-heading">
+                <p class="eyebrow">Welcome back</p>
+                <h2>Sign in to your campus</h2>
+                <p>Use your school account to continue to the dashboard.</p>
+            </div>
+
+            {% if registered %}<div class="success-alert" role="status">Your account is ready. Sign in to continue.</div>{% endif %}
+            {% if error %}<div class="alert" role="alert">{{ error }}</div>{% endif %}
+
+            <form method="post" class="login-form">
+                <label for="email">Username or school email</label>
+                <input id="email" name="email" type="text" placeholder="Enter your username or school email" autocomplete="username" required value="{{ request.form.get('email', '') }}">
+                <div class="label-row"><label for="password">Password</label><a href="mailto:office@northstar.edu?subject=Password%20help">Forgot password?</a></div>
+                <div class="password-field">
+                    <input id="password" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" required>
+                    <button class="password-toggle" type="button" data-password-toggle aria-controls="password" aria-pressed="false">Show</button>
+                </div>
+                <label class="checkbox-label"><input type="checkbox" name="remember"><span>Keep me signed in on this device</span></label>
+                <button type="submit" class="button button-primary">Sign in <span aria-hidden="true">-&gt;</span></button>
+            </form>
+
+            <div class="social-divider"><span>or continue with</span></div>
+            <div class="social-actions">
+                <button class="social-button" type="button" data-social-provider="Google">
+                    <span class="google-mark" aria-hidden="true">G</span> Google
+                </button>
+                <button class="social-button" type="button" data-social-provider="Microsoft">
+                    <span class="microsoft-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span> Microsoft
+                </button>
+            </div>
+            <p class="social-status" data-social-status aria-live="polite"></p>
+            <p class="help-text">New to campus? <a href="{{ url_for('register') }}">Create an account</a></p>
+        </div>
+        <footer class="form-footer">Strathmore University <span>•</span> Secure campus portal</footer>
+    </section>
+</main>
+{% endblock %}

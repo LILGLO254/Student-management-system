@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Strathmore University | Dashboard{% endblock %}
+{% block body_class %}dashboard-page{% endblock %}
+
+{% block content %}
+    <div class="dashboard-layout">
+        <aside class="dashboard-sidebar" id="dashboard-sidebar" aria-label="Main navigation">
+            <a class="sidebar-brand" href="{{ url_for('dashboard') }}">
+                <span class="brand-mark">S</span>
+                <span>STRATHMORE UNIVERSITY<small>ACADEMY</small></span>
+            </a>
+            <p class="sidebar-label">Workspace</p>
+            <nav class="sidebar-nav" aria-label="Main navigation">
+                <a class="sidebar-link is-active" href="{{ url_for('dashboard') }}" aria-current="page" data-sidebar-home>
+                    <span class="sidebar-icon" aria-hidden="true">⌂</span><span>Dashboard</span>
+                </a>
+                <section class="sidebar-group">
+                    <button class="sidebar-link sidebar-group-toggle" type="button" aria-expanded="false" aria-controls="students-menu">
+                        <span class="sidebar-icon" aria-hidden="true">♙</span><span>Students</span><span class="sidebar-chevron" aria-hidden="true">⌄</span>
+                    </button>
+                    <div class="sidebar-submenu" id="students-menu">
+                        <div class="sidebar-submenu-inner">
+                            <button class="sidebar-sublink" type="button" disabled>Register Student <span>Coming soon</span></button>
+                            <button class="sidebar-sublink" type="button" disabled>Student List <span>Coming soon</span></button>
+                            <button class="sidebar-sublink" type="button" disabled>Student Records <span>Coming soon</span></button>
+                        </div>
+                    </div>
+                </section>
+                <section class="sidebar-group">
+                    <button class="sidebar-link sidebar-group-toggle" type="button" aria-expanded="false" aria-controls="academics-menu">
+                        <span class="sidebar-icon" aria-hidden="true">▤</span><span>Academics</span><span class="sidebar-chevron" aria-hidden="true">⌄</span>
+                    </button>
+                    <div class="sidebar-submenu" id="academics-menu">
+                        <div class="sidebar-submenu-inner">
+                            <button class="sidebar-sublink" type="button" disabled>Units <span>Coming soon</span></button>
+                            <button class="sidebar-sublink" type="button" disabled>Assignments <span>Coming soon</span></button>
+                            <button class="sidebar-sublink" type="button" disabled>Timetable <span>Coming soon</span></button>
+                            <button class="sidebar-sublink" type="button" disabled>Results <span>Coming soon</span></button>
+                        </div>
+                    </div>
+                </section>
+                <section class="sidebar-group">
+                    <button class="sidebar-link sidebar-group-toggle" type="button" aria-expanded="false" aria-controls="teachers-menu">
+                        <span class="sidebar-icon" aria-hidden="true">♧</span><span>Teachers</span><span class="sidebar-chevron" aria-hidden="true">⌄</span>
+                    </button>
+                    <div class="sidebar-submenu" id="teachers-menu">
+                        <div class="sidebar-submenu-inner">
+                            <button class="sidebar-sublink" type="button" disabled>Register Teacher <span>Coming soon</span></button>
+                            <button class="sidebar-sublink" type="button" disabled>Teacher List <span>Coming soon</span></button>
+                        </div>
+                    </div>
+                </section>
+                <button class="sidebar-link sidebar-placeholder" type="button" disabled><span class="sidebar-icon" aria-hidden="true">$</span><span>Fees</span></button>
+                <button class="sidebar-link sidebar-placeholder" type="button" disabled><span class="sidebar-icon" aria-hidden="true">▥</span><span>Reports</span></button>
+                <button class="sidebar-link sidebar-placeholder" type="button" disabled><span class="sidebar-icon" aria-hidden="true">⚙</span><span>Settings</span></button>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="avatar" aria-hidden="true">{{ user.name[:2]|upper }}</div>
+                    <div class="sidebar-user-copy"><strong>{{ user.name }}</strong><span>{{ user.role }}</span></div>
+                </div>
+                <a class="sidebar-logout" href="{{ url_for('logout') }}"><span class="sidebar-icon" aria-hidden="true">↗</span><span>Logout</span></a>
+            </div>
+        </aside>
+        <button class="sidebar-backdrop" type="button" data-sidebar-close aria-label="Close navigation"></button>
+
+        <div class="dashboard-workspace">
+            <header class="topbar">
+                <button class="sidebar-toggle" type="button" data-sidebar-toggle aria-controls="dashboard-sidebar" aria-expanded="false" aria-label="Open navigation">
+                    <span></span><span></span><span></span>
+                </button>
+                <a class="brand" href="{{ url_for('dashboard') }}"><span class="brand-mark">S</span><span>STRATHMORE UNIVERSITY <small>ACADEMY</small></span></a>
+                <div class="profile-menu"><div class="avatar">{{ user.name[:2]|upper }}</div><div class="profile-copy"><strong>{{ user.name }}</strong><span>{{ user.role }}</span></div><a class="logout-link" href="{{ url_for('logout') }}">Log out</a></div>
+            </header>
+            <main class="dashboard-main">
+                <div class="dashboard-intro" id="overview"><div><p class="eyebrow">Wednesday, September 23, 2026</p><h1>Good morning, {{ user.name }}.</h1><p>Here is what is happening across campus today.</p></div><a class="button button-dark" href="{{ url_for('logout') }}">Log out <span aria-hidden="true">-&gt;</span></a></div>
+                <section class="stat-grid" aria-label="School overview">
+                    <article class="stat-card" id="attendance"><span class="stat-label">Present today</span><strong>94.8%</strong><span class="stat-meta positive">+2.4% from last week</span></article>
+                    <article class="stat-card" id="students"><span class="stat-label">Active students</span><strong>1,248</strong><span class="stat-meta">Across 6 year groups</span></article>
+                    <article class="stat-card"><span class="stat-label">Open tasks</span><strong>18</strong><span class="stat-meta warm">5 need your attention</span></article>
+                </section>
+                <section class="dashboard-grid">
+                    <article class="focus-card" id="tasks"><div class="card-heading"><div><p class="eyebrow">Your focus</p><h2>Keep the day moving</h2></div><span class="card-mark">01</span></div><div class="task-list"><div class="task-row"><span class="task-icon">A</span><div><strong>Review attendance</strong><span>3 classes need a follow-up</span></div><span class="task-arrow">-&gt;</span></div><div class="task-row"><span class="task-icon">F</span><div><strong>Family messages</strong><span>7 new conversations waiting</span></div><span class="task-arrow">-&gt;</span></div><div class="task-row"><span class="task-icon">C</span><div><strong>Approve timetable change</strong><span>Requested by Year 9 team</span></div><span class="task-arrow">-&gt;</span></div></div></article>
+                    <aside class="quote-card"><span class="quote-mark">“</span><p>Children learn best when the adults around them have the space to notice what matters.</p><span class="quote-source">Northstar teaching principle</span></aside>
+                </section>
+            </main>
+        </div>
+    </div>
+{% endblock %}

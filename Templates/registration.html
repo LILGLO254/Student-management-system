@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Strathmore University | Create account{% endblock %}
+{% block body_class %}auth-page{% endblock %}
+
+{% block content %}
+<main class="auth-shell">
+	<section class="welcome-panel" aria-label="Strathmore University introduction">
+		<a class="brand brand-light" href="{{ url_for('login') }}">
+			<span class="brand-mark">S</span>
+			<span>STRATHMORE UNIVERSITY</span>
+		</a>
+		<div class="welcome-copy">
+			<p class="eyebrow">A good place to begin</p>
+			<h1>Your campus, all in one place.</h1>
+			<p>Create your school account to keep learning, campus updates, and everyday essentials close at hand.</p>
+		</div>
+		<div class="welcome-note"><span class="status-dot"></span><span>Campus systems operational</span></div>
+	</section>
+
+	<section class="form-panel">
+		<div class="form-wrap">
+			<div class="form-heading">
+				<p class="eyebrow">Join your campus</p>
+				<h2>Create your account</h2>
+				<p>Enter your details to get started.</p>
+			</div>
+
+			{% if error %}<div class="alert" role="alert">{{ error }}</div>{% endif %}
+
+			<form method="post" class="login-form" id="registration-form">
+				<label for="username">Username</label>
+				<input id="username" name="username" type="text" placeholder="Choose a username" autocomplete="username" maxlength="100" required value="{{ request.form.get('username', '') }}">
+				<label for="email">School email</label>
+				<input id="email" name="email" type="email" placeholder="you@northstar.edu" autocomplete="email" maxlength="150" required value="{{ request.form.get('email', '') }}">
+				<label for="password">Password</label>
+				<div class="password-field">
+					<input id="password" name="password" type="password" placeholder="Create a strong password" autocomplete="new-password" minlength="8" required aria-describedby="password-guidance">
+					<button class="password-toggle" type="button" data-password-toggle aria-controls="password" aria-pressed="false">Show</button>
+				</div>
+				<div class="strength-meter" aria-label="Password strength">
+					<span data-strength-bar></span><span data-strength-bar></span><span data-strength-bar></span><span data-strength-bar></span><span data-strength-bar></span>
+				</div>
+				<p class="strength-label" id="password-guidance" aria-live="polite">Use at least 8 characters and 3 character types.</p>
+				<label for="confirm-password">Confirm password</label>
+				<div class="password-field">
+					<input id="confirm-password" name="confirm_password" type="password" placeholder="Enter your password again" autocomplete="new-password" minlength="8" required>
+					<button class="password-toggle" type="button" data-password-toggle aria-controls="confirm-password" aria-pressed="false">Show</button>
+				</div>
+				<button type="submit" class="button button-primary">Create account <span aria-hidden="true">-&gt;</span></button>
+			</form>
+
+			<div class="social-divider"><span>or continue with</span></div>
+			<div class="social-actions">
+				<button class="social-button" type="button" data-social-provider="Google">
+					<span class="google-mark" aria-hidden="true">G</span> Google
+				</button>
+				<button class="social-button" type="button" data-social-provider="Microsoft">
+					<span class="microsoft-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span> Microsoft
+				</button>
+			</div>
+			<p class="social-status" data-social-status aria-live="polite"></p>
+			<p class="help-text">Already have an account? <a href="{{ url_for('login') }}">Sign in</a></p>
+		</div>
+		<footer class="form-footer">Strathmore University <span>•</span> Secure campus portal</footer>
+	</section>
+</main>
+{% endblock %}
