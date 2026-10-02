@@ -1,0 +1,12 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Activate Python venv",
+			"type": "shell",
+			"command": "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -ExecutionPolicy Bypass -File .\\.venv\\Scripts\\Activate.ps1; python -V",
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}

@@ -249,6 +249,28 @@ def create_connection():
         for statement in table_statements:
             cursor.execute(statement)
 
+        cursor.execute(
+            "SELECT COLUMN_NAME, CHARACTER_MAXIMUM_LENGTH "
+            "FROM information_schema.COLUMNS "
+            "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users' "
+            "AND COLUMN_NAME IN ('username', 'email', 'password')"
+        )
+        user_column_lengths = dict(cursor.fetchall())
+        if any(
+            user_column_lengths.get(column, 0) < required_length
+            for column, required_length in (
+                ("username", 100),
+                ("email", 150),
+                ("password", 255),
+            )
+        ):
+            cursor.execute(
+                "ALTER TABLE users "
+                "MODIFY COLUMN username VARCHAR(100) NOT NULL, "
+                "MODIFY COLUMN email VARCHAR(150) NOT NULL, "
+                "MODIFY COLUMN password VARCHAR(255) NOT NULL"
+            )
+
         connection.commit()
         print("All tables created successfully!")
         return connection
