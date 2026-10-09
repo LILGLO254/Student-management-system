@@ -1,6 +1,6 @@
 from hmac import compare_digest
-
-from flask import Flask, redirect, render_template, request, session, url_for
+from functools import wraps
+from flask import Flask,abort, redirect, render_template, request, session, url_for
 from database import create_connection
 from mysql.connector import Error, IntegrityError
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -8,6 +8,37 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__, static_folder="styles", static_url_path="/styles")
 app.secret_key = "school-management-demo-key"
+
+
+
+def login_required(*allowed_roles):
+    def decorator(view_function):
+        @wraps(view_function)
+        def wrapper(*args, **kwargs):
+            user=session.get("user")
+
+    
+
+
+            if not session.get("user"):
+                return redirect(url_for("login"))
+
+            
+            role = str(user.get("role", "student")).lower()
+            if role not in allowed_roles:
+                abort(403)
+            return view_function(*args, **kwargs)
+        return wrapper
+    return decorator
+
+@app.errorhandler(403)
+def forbidden(error):
+    return render_template("403.html"), 403 
+
+
+
+
+
 
 
 @app.route("/")
@@ -113,7 +144,7 @@ def login():
             if user and password_matches:
                 session["user"] = {
                     "name": user["username"],
-                    "role": user["role"] or "School user",
+                    "role": user["role"] or "student",
                 }
                 session.permanent = request.form.get("remember") == "on"
                 return redirect(url_for("dashboard"))
@@ -123,13 +154,46 @@ def login():
         "login.html", error=error, registered=request.args.get("registered") == "1"
     )
 
+@app.route("/admin/dashboard")
+@login_required("admin")    
+def admin_dashboard():
+    return render_template("admin_dashboard.html",user=session.get("user"))
+
+@app.route("/lecturer/dashboard")
+@login_required("lecturer")
+def lecturer_dashboard():
+    return render_template("lecturer_dashboard.html",user=session.get("user"))
+
+@app.route("/student/dashboard")
+@login_required("student")
+def student_dashboard():
+    return render_template("student_dashboard.html",user=session.get("user"))
+
+
 
 @app.route("/dashboard")
 def dashboard():
-    if not session.get("user"):
-        return redirect(url_for("login"))
-    return render_template("dashboard.html", user=session["user"])
+   user = session.get("user")
 
+   if not user:
+       return redirect(url_for("login"))
+
+   role =str(user.get("role", "student")).strip().lower()
+
+   if role == "admin":
+        return redirect(url_for("admin_dashboard"))
+
+   elif role == "lecturer":
+        return redirect(url_for("lecturer_dashboard"))
+
+   elif role == "student":
+        return redirect(url_for("student_dashboard"))
+
+   abort(403)
+
+
+
+    
 
 @app.route("/logout")
 def logout():

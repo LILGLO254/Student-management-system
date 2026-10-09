@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard | Strathmore University{% endblock %}
+{% block body_class %}admin-dashboard-page{% endblock %}
+
+{% block content %}
+<div class="role-dashboard admin-theme">
+
+    <header class="dashboard-heading">
+        <div>
+            <p class="eyebrow">STRATHMORE UNIVERSITY</p>
+            <h1>Administrator Dashboard</h1>
+            <p>Welcome back, {{ user.get('username', user.get('name', 'Administrator')) }}.</p>
+        </div>
+        <div class="dashboard-avatar">A</div>
+    </header>
+
+    <section class="welcome-panel">
+        <div>
+            <span class="panel-label">SYSTEM MANAGEMENT</span>
+            <h2>Everything in One Place.</h2>
+            <p>Manage student records, lecturers, programmes and university operations.</p>
+        </div>
+        <span class="welcome-icon">🛡️</span>
+    </section>
+
+    <section class="dashboard-section">
+        <h2>Administration</h2>
+        <div class="dashboard-grid">
+
+            <article class="dashboard-card">
+                <span class="card-icon">🎓</span>
+                <h3>Student Management</h3>
+                <p>Register students and manage their records.</p>
+                <a class="dashboard-action"
+                   href="{{ url_for('register_student') }}">
+                    Register Student →
+                </a>
+                <a class="dashboard-secondary-link"
+                   href="{{ url_for('student_list') }}">
+                    View Students
+                </a>
+            </article>
+
+            <article class="dashboard-card">
+                <span class="card-icon">👨‍🏫</span>
+                <h3>Lecturer Management</h3>
+                <p>Manage lecturer accounts and assignments.</p>
+                <span class="card-note">Lecturer management module to be implemented.</span>
+            </article>
+
+            <article class="dashboard-card">
+                <span class="card-icon">📚</span>
+                <h3>Courses and Programmes</h3>
+                <p>Manage academic programmes and units.</p>
+                <span class="card-note">Connect your existing programme tables.</span>
+            </article>
+
+            <article class="dashboard-card">
+                <span class="card-icon">🗓️</span>
+                <h3>Timetable Management</h3>
+                <p>Coordinate classes and teaching schedules.</p>
+                <span class="card-note">Timetable module to be implemented.</span>
+            </article>
+
+            <article class="dashboard-card">
+                <span class="card-icon">📈</span>
+                <h3>Reports and Statistics</h3>
+                <p>Review student and academic reports.</p>
+                <span class="card-note">Statistics should use actual database records.</span>
+            </article>
+
+            <article class="dashboard-card">
+                <span class="card-icon">🔐</span>
+                <h3>User Accounts</h3>
+                <p>Manage account access and user roles.</p>
+                <span class="card-note">Restrict account administration to admins.</span>
+            </article>
+
+        </div>
+    </section>
+
+    <footer class="dashboard-footer">
+        Strathmore University · Administration Portal
+        <a href="{{ url_for('logout') }}">Sign out</a>
+    </footer>
+
+</div>
+{% endblock %}

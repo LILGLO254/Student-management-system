@@ -14,6 +14,7 @@ def seed_users():
         raise RuntimeError("Could not connect to the student management database.")
 
     inserted = 0
+    
     try:
         cursor = connection.cursor()
         for username, email, password, role in users:

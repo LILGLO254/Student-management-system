@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Lecturer Dashboard | Strathmore University{% endblock %}
+{% block body_class %}lecturer-dashboard-page{% endblock %}
+
+{% block content %}
+<div class="role-dashboard lecturer-theme">
+
+    <header class="dashboard-heading">
+        <div>
+            <p class="eyebrow">STRATHMORE UNIVERSITY</p>
+            <h1>Lecturer Dashboard</h1>
+            <p>Welcome back, {{ user.get('username', user.get('name', 'Lecturer')) }}.</p>
+        </div>
+        <div class="dashboard-avatar">L</div>
+    </header>
+
+    <section class="welcome-panel">
+        <div>
+            <span class="panel-label">TEACHING WORKSPACE</span>
+            <h2>Teach. Guide. Inspire.</h2>
+            <p>Manage your teaching responsibilities, students, attendance and assessments.</p>
+        </div>
+        <span class="welcome-icon">👨‍🏫</span>
+    </section>
+
+    <section class="dashboard-section">
+        <h2>Teaching Overview</h2>
+        <div class="dashboard-grid">
+
+            <article class="dashboard-card">
+                <span class="card-icon">📚</span>
+                <h3>My Teaching Units</h3>
+                <p>View the units assigned to you.</p>
+                <span class="card-note">Connect assigned units from MySQL.</span>
+            </article>
+
+            <article class="dashboard-card">
+                <span class="card-icon">👥</span>
+                <h3>My Students</h3>
+                <p>View students enrolled in your units.</p>
+                <span class="card-note">Access should be limited to your classes.</span>
+            </article>
+
+            <article class="dashboard-card">
+                <span class="card-icon">📝</span>
+                <h3>Assignments</h3>
+                <p>Create coursework and manage deadlines.</p>
+                <span class="card-note">Assignment management can be added next.</span>
+            </article>
+
+            <article class="dashboard-card">
+                <span class="card-icon">✅</span>
+                <h3>Attendance</h3>
+                <p>Record and review class attendance.</p>
+                <span class="card-note">Connect attendance records from MySQL.</span>
+            </article>
+
+            <article class="dashboard-card">
+                <span class="card-icon">📊</span>
+                <h3>Marks and Grades</h3>
+                <p>Enter and review assessment marks.</p>
+                <span class="card-note">Only authorized teaching units should be editable.</span>
+            </article>
+
+            <article class="dashboard-card">
+                <span class="card-icon">🗓️</span>
+                <h3>Teaching Timetable</h3>
+                <p>Check your scheduled lectures.</p>
+                <span class="card-note">Connect your teaching timetable.</span>
+            </article>
+
+        </div>
+    </section>
+
+    <footer class="dashboard-footer">
+        Strathmore University · Lecturer Portal
+        <a href="{{ url_for('logout') }}">Sign out</a>
+    </footer>
+
+</div>
+{% endblock %}

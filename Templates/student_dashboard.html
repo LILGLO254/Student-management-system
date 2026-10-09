@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Student Dashboard | Strathmore University{% endblock %}
+{% block body_class %}student-dashboard-page{% endblock %}
+
+{% block content %}
+<div class="role-dashboard student-theme">
+
+    <header class="dashboard-heading">
+        <div>
+            <p class="eyebrow">STRATHMORE UNIVERSITY</p>
+            <h1>Student Dashboard</h1>
+            <p>Welcome back, {{ user.get('username', user.get('name', 'Student')) }}.</p>
+        </div>
+        <div class="dashboard-avatar">
+            {{ user.get('username', 'S')[0]|upper }}
+        </div>
+    </header>
+
+    <section class="welcome-panel">
+        <div>
+            <span class="panel-label">YOUR ACADEMIC SPACE</span>
+            <h2>Learn. Grow. Achieve.</h2>
+            <p>Keep track of your courses, timetable, assignments and academic progress.</p>
+        </div>
+        <span class="welcome-icon">🎓</span>
+    </section>
+
+    <section class="dashboard-section">
+        <h2>Academic Overview</h2>
+        <div class="dashboard-grid">
+
+            <article class="dashboard-card">
+                <span class="card-icon">📚</span>
+                <h3>My Courses</h3>
+                <p>View the units you are enrolled in.</p>
+                <span class="card-note">Course records can be connected here.</span>
+            </article>
+
+            <article class="dashboard-card">
+                <span class="card-icon">🗓️</span>
+                <h3>My Timetable</h3>
+                <p>Keep track of classes and lecture times.</p>
+                <span class="card-note">Your personal timetable.</span>
+            </article>
+
+            <article class="dashboard-card">
+                <span class="card-icon">📝</span>
+                <h3>Assignments</h3>
+                <p>Check coursework and upcoming deadlines.</p>
+                <span class="card-note">Assignment records can be connected here.</span>
+            </article>
+
+            <article class="dashboard-card">
+                <span class="card-icon">📊</span>
+                <h3>My Results</h3>
+                <p>Review your academic performance.</p>
+                <span class="card-note">Only your own results should appear here.</span>
+            </article>
+
+            <article class="dashboard-card">
+                <span class="card-icon">✅</span>
+                <h3>Attendance</h3>
+                <p>Review your class attendance records.</p>
+                <span class="card-note">Attendance records can be connected here.</span>
+            </article>
+
+            <article class="dashboard-card">
+                <span class="card-icon">👤</span>
+                <h3>My Profile</h3>
+                <p>View your account information.</p>
+                <span class="card-note">Profile management can be added next.</span>
+            </article>
+
+        </div>
+    </section>
+
+    <footer class="dashboard-footer">
+        Strathmore University · Student Portal
+        <a href="{{ url_for('logout') }}">Sign out</a>
+    </footer>
+
+</div>
+{% endblock %}

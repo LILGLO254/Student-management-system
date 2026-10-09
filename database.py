@@ -22,7 +22,7 @@ def create_connection():
                 username VARCHAR(100) NOT NULL UNIQUE,
                 email VARCHAR(150) NOT NULL UNIQUE,
                 password VARCHAR(255) NOT NULL,
-                role VARCHAR(50) NOT NULL,
+                role ENUM ("student","lecturer", "admin") NOT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
             """,
@@ -45,17 +45,22 @@ def create_connection():
             """,
             """
             CREATE TABLE IF NOT EXISTS students (
-                student_id INT AUTO_INCREMENT PRIMARY KEY,
+                user_id INT NOT NULL,
+                student_id INT AUTO_INCREMENT UNIQUE PRIMARY KEY,
                 admission_no VARCHAR(50) NOT NULL UNIQUE,
                 names VARCHAR(150) NOT NULL,
-                gender VARCHAR(20),
+                gender ENUM ("Male", "Female"),
                 date_of_birth DATE,
                 phone VARCHAR(30),
                 email VARCHAR(150),
                 program_id INT,
                 FOREIGN KEY (program_id)
                     REFERENCES programs(program_id)
-                    ON DELETE SET NULL
+                    ON DELETE SET NULL,
+                FOREIGN KEY (user_id)
+                    REFERENCES users(user_id)
+                    ON DELETE CASCADE
+
             )
             """,
             """
